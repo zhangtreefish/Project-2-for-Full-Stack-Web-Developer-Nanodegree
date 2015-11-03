@@ -37,6 +37,16 @@ def testRegister():
             "After one player registers, countPlayers() should be 1.")
     print "4. After registering a player, countPlayers() returns 1."
 
+def testRegisters():
+    deleteMatches()
+    deletePlayers()
+    registerPlayers(["Chandra Nalaar","Mia"])
+    c = countPlayers()
+    if c != 2:
+        raise ValueError(
+            "After two players register, countPlayers() should be 2.")
+    print "4.2 After registering two players, countPlayers() returns 2."
+
 
 def testRegisterCountDelete():
     deleteMatches()
@@ -130,6 +140,7 @@ if __name__ == '__main__':
     testDelete()
     testCount()
     testRegister()
+    testRegisters()
     #testRegisterCountDelete()
     #testStandingsBeforeMatches()
     #testReportMatches()

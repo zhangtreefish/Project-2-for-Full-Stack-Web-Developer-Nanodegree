@@ -33,10 +33,9 @@ def countPlayers():
     DB=connect()
     c=DB.cursor()
     c.execute("SELECT * from players;")
-    rows=c.fetchall()
+    rows=c.fetchall() #fetchall() is quite a connector!
     count=len(rows)
     return count
-
     DB.close()
 
 def registerPlayer(name):
@@ -53,6 +52,10 @@ def registerPlayer(name):
     c.execute("INSERT INTO players(name) VALUES (%s);",(name,))
     DB.commit()
     DB.close()
+
+def registerPlayers(list):
+    for person in list:
+        tournament.registerPlayer(person)
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -93,5 +96,4 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-registerPlayer("Lucas Zheng")
 
