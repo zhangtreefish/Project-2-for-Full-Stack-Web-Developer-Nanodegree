@@ -20,30 +20,30 @@ CREATE TABLE IF NOT EXISTS matches (match_id SERIAL PRIMARY KEY,
 	--INSERT INTO players(fullname) VALUES(%s);(p,)
 	--INSERT INTO players(fullname) VALUES(p);
 
-INSERT INTO players(name) VALUES('Ted'),('Rylie'),('Rory'),('Hannah');
+INSERT INTO players(name) VALUES('Ted Joahnson'),('Rylie Salman'),('Rory Henders'),('Hannah Jones');
 --INSERT INTO players(name) VALUES('Rylie');
 --INSERT INTO players(name) VALUES('Rory');
 --INSERT INTO players(name) VALUES('Hannah');
 
-INSERT INTO players(name) VALUES('Luca');
-INSERT INTO players(name) VALUES('Andy');
-INSERT INTO players(name) VALUES('Mia');
-INSERT INTO players(name) VALUES('Xianmei');
+INSERT INTO players(name) VALUES('Luca Travino');
+INSERT INTO players(name) VALUES('Andy Cai');
+INSERT INTO players(name) VALUES('Mia Smith');
+INSERT INTO players(name) VALUES('Xiameng Nyugen');
 
-INSERT INTO players(name) VALUES('Susie'),('Lu'),('Cindy'),('Dana');
+INSERT INTO players(name) VALUES('Susie Lao'),('Lu Xiao'),('Cindy Woo'),('Dana Farber');
 --INSERT INTO players(name) VALUES('Lu');
 --INSERT INTO players(name) VALUES('Cindy');
 --INSERT INTO players(name) VALUES('Dana');
 
-INSERT INTO players(name) VALUES('Eric');
-INSERT INTO players(name) VALUES('Max');
-INSERT INTO players(name) VALUES('Alex');
-INSERT INTO players(name) VALUES('Josh');
+INSERT INTO players(name) VALUES('Eric Zig');
+INSERT INTO players(name) VALUES('Max McCall');
+INSERT INTO players(name) VALUES('Alex Rodriguez');
+INSERT INTO players(name) VALUES('Josh Pink');
 
 
 
-INSERT INTO matches VALUES(1,'2015-11-02','Eric Zheng','McCall','Player1');
-INSERT INTO matches VALUES(2,'2015-10-30','Lucas Zheng','Eric Zheng','Player1');
+INSERT INTO matches VALUES(1,'2015-11-02','Eric Zig','Max McCall','Eric Zig');
+INSERT INTO matches VALUES(2,'2015-10-30','Mia Smith','Eric Zig','Eric Zig');
 
 
 
