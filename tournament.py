@@ -74,12 +74,13 @@ def playerStandings():
     c=DB.cursor()
     c.execute("SELECT p.id,\
         p.name,\
-        CASE WHEN count(m.winner)=0 THEN 0 ELSE count(m.winner) END,\
+        CASE WHEN count(m.winer)=0 THEN 0 ELSE count(m.winer) where m.winer=p.id END,\
         CASE WHEN count(m.match_id)=0 THEN 0 ELSE count(m.match_id) END\
         FROM players p LEFT OUTER JOIN matches m\
-        ON p.name=m.player1 OR p.name=m.player2 \
-        GROUP BY p.id ORDER BY count(m.winner);")
+        ON p.id=m.player1 OR p.id=m.player2 \
+        GROUP BY p.id ORDER BY count(m.winer);")
     standing=c.fetchall()
+    print "hi",standing    #this is to see what is returned for 'standing'
     return standing
     DB.close()
 
@@ -90,7 +91,11 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-
+    DB=connect()
+    c=DB.cursor()
+    c.execute("INSERT INTO matches(player1,player2,winer) VALUES (%s,%s,%s);",(winner,loser,winner,))
+    DB.commit()
+    DB.close()
 
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
@@ -107,4 +112,16 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+#registerPlayer('Bruno Walton')
+#registerPlayer("Boots O'Neal")
+#registerPlayer('Cathy Burton')
+#registerPlayer('Diane Grant')
+registerPlayers(['Ted Joahnson','Rylie Salman','Rory Henders','Hannah Jones',\
+    'Luca Travino','Andy Cai','Mia Smith','Xiameng Nyugen',\
+    'Susie Lao','Lu Xiao','Cindy Woo','Dana Farber',\
+    'Eric Zig','Max McCall','Alex Rodriguez','Josh Pink'])
+#reportMatch(3,4)
+playerStandings()
+
+
 
