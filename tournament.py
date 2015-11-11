@@ -72,13 +72,7 @@ def playerStandings():
     """
     DB=connect()
     c=DB.cursor()
-    c.execute("SELECT p.id,\
-        p.name,\
-        CASE WHEN count(m.winer)=0 THEN 0 ELSE count(m.winer) where m.winer=p.id END,\
-        CASE WHEN count(m.match_id)=0 THEN 0 ELSE count(m.match_id) END\
-        FROM players p LEFT OUTER JOIN matches m\
-        ON p.id=m.player1 OR p.id=m.player2 \
-        GROUP BY p.id ORDER BY count(m.winer);")
+    c.execute("SELECT * FROM v_player_standing;")
     standing=c.fetchall()
     print "hi",standing    #this is to see what is returned for 'standing'
     return standing
@@ -93,7 +87,7 @@ def reportMatch(winner, loser):
     """
     DB=connect()
     c=DB.cursor()
-    c.execute("INSERT INTO matches(player1,player2,winer) VALUES (%s,%s,%s);",(winner,loser,winner,))
+    c.execute("INSERT INTO matches(player1,player2,winer) VALUES (%s,%s,%s)",(winner,loser,winner))
     DB.commit()
     DB.close()
 
@@ -120,8 +114,3 @@ registerPlayers(['Ted Joahnson','Rylie Salman','Rory Henders','Hannah Jones',\
     'Luca Travino','Andy Cai','Mia Smith','Xiameng Nyugen',\
     'Susie Lao','Lu Xiao','Cindy Woo','Dana Farber',\
     'Eric Zig','Max McCall','Alex Rodriguez','Josh Pink'])
-#reportMatch(3,4)
-playerStandings()
-
-
-
