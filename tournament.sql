@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS players (
 );
 
 CREATE TABLE IF NOT EXISTS matches (
-    player1 int,
-    player2 int,
-    winner int,
+    player1 int references players(id),
+    player2 int references players(id),
+    winner int references players(id),
     match_id SERIAL PRIMARY KEY
 );
 
