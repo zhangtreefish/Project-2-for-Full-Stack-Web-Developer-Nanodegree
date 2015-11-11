@@ -23,33 +23,33 @@ CREATE TABLE IF NOT EXISTS matches (
     match_id SERIAL PRIMARY KEY
 );
 
---use %s to defend against sql injection hack
-INSERT INTO players(name) VALUES(%s);('Ted Joahnson')
-INSERT INTO players(name) VALUES(%s);('Rylie Salman')
-INSERT INTO players(name) VALUES(%s);('Rory Henders')
-INSERT INTO players(name) VALUES(%s);('Hannah Jones')
+--use %s to defend against sql injection hack TODO
+INSERT INTO players(name) VALUES ('Ted Joahnson');
+INSERT INTO players(name) VALUES ('Rylie Salman');
+INSERT INTO players(name) VALUES ('Rory Henders');
+INSERT INTO players(name) VALUES ('Hannah Jones');
 
 --this view is the master view
 CREATE VIEW v_players_and_matches AS
-    select * from players left join matches
-    on players.id=matches.player1 or players.id=matches.player2;
+    SELECT * FROM players LEFT JOIN matches
+    ON players.id=matches.player1 OR players.id=matches.player2;
 
 --this view lists only those who has at least one win
 CREATE VIEW v_win_count AS
-    select
+    SELECT
         id,
-        count(winner) as win
-    from v_players_and_matches
+        count(winner) AS win
+    FROM v_players_and_matches
     WHERE winner=id
-    group by id;
+    GROUP BY id;
 
 --this view shows the total matches played by each player
 CREATE VIEW v_total_count AS
-    select
+    SELECT
         id,
-        count(match_id) as total
-    from v_players_and_matches
-    group by id;
+        count(match_id) AS total
+    FROM v_players_and_matches
+    GROUP BY id;
 
 --this is the player standing view
 CREATE VIEW v_player_standing AS
