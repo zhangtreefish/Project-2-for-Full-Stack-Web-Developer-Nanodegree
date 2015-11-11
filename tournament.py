@@ -6,6 +6,7 @@
 import psycopg2
 import tournament
 
+
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
     return psycopg2.connect("dbname=tournament")
@@ -13,30 +14,33 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
-    DB=connect()
-    c=DB.cursor()
+    DB = connect()
+    c = DB.cursor()
     c.execute("DELETE from matches;")
     DB.commit()
     DB.close()
 
+
 def deletePlayers():
     """Remove all the player records from the database."""
-    DB=connect()
-    c=DB.cursor()
+    DB = connect()
+    c = DB.cursor()
     c.execute("DELETE FROM players;")
     DB.commit()
     DB.close()
     print "1. Old matches can be deleted."
 
+
 def countPlayers():
     """Returns the number of players currently registered."""
-    DB=connect()
-    c=DB.cursor()
+    DB = connect()
+    c = DB.cursor()
     c.execute("SELECT * from players;")
-    rows=c.fetchall() #fetchall() is quite a connector!
-    count=len(rows)
+    rows = c.fetchall()  # fetchall() is quite a connector!
+    count = len(rows)
     return count
     DB.close()
+
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
@@ -47,21 +51,23 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
-    DB=connect()
-    c=DB.cursor()
-    c.execute("INSERT INTO players(name) VALUES (%s);",(name,))
+    DB = connect()
+    c = DB.cursor()
+    c.execute("INSERT INTO players(name) VALUES (%s);", (name,))
     DB.commit()
     DB.close()
+
 
 def registerPlayers(list):
     for person in list:
         tournament.registerPlayer(person)
 
+
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
 
-    The first entry in the list should be the player in first place, or a player
-    tied for first place if there is currently a tie.
+    The first entry in the list should be the player in first place, or a
+    player tied for first place if there is currently a tie.
 
     Returns:
       A list of tuples, each of which contains (id, name, wins, matches):
@@ -70,13 +76,13 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-    DB=connect()
-    c=DB.cursor()
+    DB = connect()
+    c = DB.cursor()
     c.execute("SELECT * FROM v_player_standing;")
-    standing=c.fetchall()
-    print "hi",standing    #this is to see what is returned for 'standing'
+    standing = c.fetchall()
     return standing
     DB.close()
+
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -85,11 +91,13 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-    DB=connect()
-    c=DB.cursor()
-    c.execute("INSERT INTO matches(player1,player2,winer) VALUES (%s,%s,%s)",(winner,loser,winner))
+    DB = connect()
+    c = DB.cursor()
+    c.execute("INSERT INTO matches(player1, player2, winner) VALUES (%s,%s,\
+               %s)", (winner, loser, winner))
     DB.commit()
     DB.close()
+
 
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
@@ -106,11 +114,12 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
-#registerPlayer('Bruno Walton')
-#registerPlayer("Boots O'Neal")
-#registerPlayer('Cathy Burton')
-#registerPlayer('Diane Grant')
-registerPlayers(['Ted Joahnson','Rylie Salman','Rory Henders','Hannah Jones',\
-    'Luca Travino','Andy Cai','Mia Smith','Xiameng Nyugen',\
-    'Susie Lao','Lu Xiao','Cindy Woo','Dana Farber',\
-    'Eric Zig','Max McCall','Alex Rodriguez','Josh Pink'])
+    standing = playerStandings()
+    pairing = list()
+    i = 0
+    num = len(standing)
+    while i < num:
+        pairing.append((standing[i][0], standing[i][1], standing[i+1][0],
+                        standing[i+1][1]))
+        i = i + 2
+    return pairing
