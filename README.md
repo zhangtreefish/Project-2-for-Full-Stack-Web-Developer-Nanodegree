@@ -1,4 +1,4 @@
-# tournament
+# Tournament PostgreSQL Database in a Virtual Machine
 ------------
 Project 2 of Full Stack Web Developer Nanodegree at Udacity. Use the virtual machine vagrant to serve the psql interface.
 
