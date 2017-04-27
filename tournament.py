@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # tournament.py -- implementation of a Swiss-system tournament
 #
