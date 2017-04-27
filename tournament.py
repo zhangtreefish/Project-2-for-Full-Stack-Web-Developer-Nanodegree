@@ -28,7 +28,7 @@ def deletePlayers():
     c.execute("DELETE FROM players;")
     DB.commit()
     DB.close()
-    print "1. Old matches can be deleted."
+    print("1. Old matches can be deleted.")
 
 
 def countPlayers():
